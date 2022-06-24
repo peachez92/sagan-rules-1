@@ -447,3 +447,6 @@ alert any $EXTERNAL_NET any -> $HOME_NET any (msg: "[WINDOWS-SECURITY] Potential
 
 # Detects Export of Secret Key. By SDrenning off of Golden SAML IOC's
 alert any $HOME_NET any -> $EXTERNAL_NET any (msg:"[WINDOWS-SECURITY] Command to Export Secret Key Detected"; event_id: 4688; content: "certutil |2d|exportPFX";nocase; classtype: suspicious-command; reference: url,github.com/SigmaHQ/sigma/blob/master/rules/powershell; reference: url,sygnia.co/golden-saml-advisory; sid:5005956; rev:1;)
+
+# Installation of a Windows Service Rule. $EXPLOITLIST Variable must be added in sagan.yaml - Kevin McAree 6/24/2022
+# alert any $EXTERNAL_NET any -> $HOME_NET any (msg: "[WINDOWS-MISC] Installation of new service via Security Audit"; event_id: 4697,601; meta_content: "%sagan%", $EXPLOITLIST; meta_nocase; classtype: suspicious-traffic; program: *Security*; reference: url,wiki.quadrantsec.com/bin/view/Main/5002818; reference: url,pastebin.com/raw/0SNSvyjJ; sid:50065668; rev:5;)
